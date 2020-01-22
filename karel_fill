@@ -18,14 +18,14 @@ function placeAndMove(){
  
 function main(){
    while(noBeepersPresent()){
-   while(noBeepersPresent()){
-      placeAndMove();
+      while(noBeepersPresent()){
+         placeAndMove();
    
-      if(beepersPresent()){
-         turnLeft();
-         move();
+         if(beepersPresent()){
+            turnLeft();
+            move();
+         }
       }
-   }
-   moveUp();
+      moveUp();
    } 
 }
