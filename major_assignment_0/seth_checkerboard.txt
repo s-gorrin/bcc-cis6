@@ -1,0 +1,68 @@
+/*
+ * Checkerboard implementation.
+ * Works on any world except maze.
+ */
+
+function run(){ // gotta go fast
+   while(frontIsClear()){
+      move();
+   }
+}
+
+function goBack(){ // return to left
+   turnAround();
+   run();
+}
+
+function advance(){ // moves two spaces unless at wall
+   if(beepersPresent()){
+      if(frontIsClear()){
+         move();
+         if(frontIsClear()){
+            move(); // second step if no wall OR odd
+         }
+         else{
+            putBeeper(); // drop flag to mark even
+         }
+      }
+   } // should now be on the next beeper spot or a wall
+}
+
+function putRow(){ // lay a row of beepers every other spot
+   putBeeper();
+   while(frontIsClear()){
+      advance();
+      if(noBeepersPresent()){
+         putBeeper();
+      }
+      else{
+         pickBeeper(); // only if at wall on even world
+      }
+   }
+}
+
+function goUp(){ // go up a row to next beeper spot
+   turnRight();
+   if(beepersPresent()){
+      move();
+      turnRight();
+      move();
+   }
+   else{
+      move();
+      turnRight();
+   }
+}
+
+function main(){
+   putRow();
+   goBack();
+   goUp();
+   while(rightIsClear()){
+      putRow();
+      goBack();
+      if(rightIsClear()){
+         goUp();
+      }
+   }
+}
