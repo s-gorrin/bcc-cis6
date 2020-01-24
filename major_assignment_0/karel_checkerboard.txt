@@ -1,7 +1,7 @@
-/*
+/**
  * Checkerboard implementation.
  * Works on any world except maze.
- */
+**/
 
 function run(){ // gotta go fast
    while(frontIsClear()){
@@ -64,5 +64,92 @@ function main(){
       if(rightIsClear()){
          goUp();
       }
+   }
+}
+
+
+/**
+ * Snake method. Adds twelve lines of code
+ * in order to avoid going back. Thank you
+**/
+
+function run(){
+   while(frontIsClear()){
+      move();
+   }
+}
+
+function checkFront(){
+   if(beepersPresent()){
+      if(frontIsClear()){
+         move();
+         if(frontIsClear()){
+            move(); // second step if no wall OR odd
+         }
+         else{
+            putBeeper(); // drop flag to mark even
+         }
+      }
+   }
+   // should now be on the next beeper spot or a wall
+}
+
+function putRow(){
+   if(frontIsClear()){ // this is new to make cleaner
+   putBeeper();
+   while(frontIsClear()){
+      checkFront();
+      if(noBeepersPresent()){
+         putBeeper();
+      }
+      else{
+         pickBeeper(); // only if at wall on even world
+      }
+   }
+   }
+}
+
+function moveUpLeft(){
+   turnLeft();
+   if(beepersPresent()){
+      if(frontIsClear()){
+         move();
+         turnLeft();
+         move();
+      }
+   }
+   else{
+      if(frontIsClear()){
+         move();
+         turnLeft();
+      }
+   }
+}
+
+function moveUpRight(){
+   turnRight();
+   if(beepersPresent()){
+      if(frontIsClear()){
+         move();
+         turnRight();
+         move();
+      }
+   }
+   else{
+      if(frontIsClear()){
+         move();
+         turnRight();
+      }
+   }
+}
+
+function main(){
+   putRow();
+   moveUpLeft();
+   while(frontIsClear()){
+      putRow();
+      moveUpRight();
+      putRow();
+      moveUpLeft();
    }
 }
