@@ -1,0 +1,16 @@
+function main(){
+   while(noBeepersPresent()){ // end condition
+      if(rightIsBlocked()){ // keep hand on right wall
+         if(frontIsClear()){ // facing a straightaway
+            move();
+         }
+         else{
+            turnLeft(); // put wall on the right
+         }
+      }
+      else{
+         turnRight(); // find right wall
+         move();
+      }
+   }
+}
