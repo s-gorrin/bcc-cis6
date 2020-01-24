@@ -1,0 +1,53 @@
+function run(){ // gotta go fast
+   while(frontIsClear()){
+      move();
+   }
+}
+
+function getBeeper(){ // moves to next beeper
+   while(noBeepersPresent()){
+      move();
+   }
+}
+
+function isFrontBeeper(){ // if beeper, move it and run
+   move(); // step forward
+   if(beepersPresent()){ // if beeper, take it and exit
+      pickBeeper();
+      run();
+   }
+}
+
+function bounce(){ // how to bounce between beepers
+   getBeeper(); // find next beeper
+   turnAround(); // face back from when you came
+   pickBeeper(); // pick up the beeper
+   move(); // step forward (towards center)
+   putBeeper(); // put beeper one step closer to center
+   isFrontBeeper(); // if so, current space is middle
+}
+
+function setUp(){ // set beepers one space off each wall
+   move();
+   putBeeper(); // left starter beeper
+   run();
+   turnAround();
+   move();
+   if(noBeepersPresent()){ // checking for 3x3
+      putBeeper(); // right starter beeper
+   }
+   move(); // on 3x3, this exits
+   if(beepersPresent()){ // checking for 4x4
+      pickBeeper();
+      move(); // on 4x4, this exits
+   }
+}
+
+function main(){
+   setUp(); // set starter beepers or finish 3x3 and 4x4
+   if(frontIsClear()){ // exit condition for 3x3 and 4x4
+      while(frontIsClear()){
+         bounce(); 
+      }
+   }
+}
