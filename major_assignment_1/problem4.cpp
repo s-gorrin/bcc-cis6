@@ -3,10 +3,17 @@
 
 using namespace std;
 
-// Seth Gorrin. CIS6. Spring 2020. 2020-02-02
-// commands: move(); turnLeft(); quit(); else: "please input xyz"
-// variables: int karelRow; int karelColumn; string karelFacing;
-// karelRow = 0; karelColumn = 0; karelFacing = east;
+/**
+ * File: problem4.cpp
+ * ----------
+ * creadted by: Seth Gorrin 2020-02-02
+ * basic text-based implementation for karel
+ * for BCC CIS6 Spring 2020
+ * ----------
+ * commands: move(); turnLeft(); quit(); else: "please input xyz"
+ * variables: int karelRow; int karelColumn; string karelFacing;
+ * karelRow = 0; karelColumn = 0; karelFacing = east;
+**/
 
 class Karel{
         private:
