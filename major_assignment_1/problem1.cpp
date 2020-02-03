@@ -1,11 +1,16 @@
+/**
+ * Filename problem1.cpp
+ * ----------
+ * created by: Seth Gorrin 2020-01-29
+ * multipliction by addition
+ * for BCC CIS6 Spring 2020
+**/
+
 #include <iostream>
 
 using namespace std;
 
 int	main() {
-	// Seth Gorrin. 29 January 2020
-	// I don't really know what "most efficient" means
-	// especially not in a multiplication by addition problem
 	int num1;
 	int num2;
 	int safe1;
