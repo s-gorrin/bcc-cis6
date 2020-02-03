@@ -1,9 +1,16 @@
+/**
+ * File: problem2.cpp
+ * ----------
+ * creadted by: Seth Gorrin 2020-01-29
+ * determine change for a money transaction
+ * for BCC CIS6 Spring 2020
+**/
+
 #include <iostream>
 
 using namespace std;
 
 int main() {
-        // Seth Gorrin. 29 January 2020
         float due, rec, raw_change;
         int change, dollars, quarters, dimes, nickles, pennies;
 
