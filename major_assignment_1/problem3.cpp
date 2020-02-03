@@ -1,7 +1,7 @@
 /**
  * File: problem3.cpp
  * ----------
- * creadted by: Seth Gorrin 2020-01-29
+ * created by: Seth Gorrin 2020-01-29
  * invert a number (does not need to store it)
  * for BCC CIS6 Spring 2020
 **/
