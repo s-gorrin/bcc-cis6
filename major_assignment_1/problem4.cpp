@@ -42,9 +42,9 @@ int Karel::move(){ //  move Karel one space - returns 0 for success, 1 for crash
                                   break;
                 case 'w': --karelColumn;
                                   break;
-                case 'n': ++karelRow;
+                case 'n': --karelRow;
                                   break;
-                case 's': --karelRow;
+                case 's': ++karelRow;
                                   break;
         }
         if (karelRow >= worldSize || karelColumn >= worldSize){
