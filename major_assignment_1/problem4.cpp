@@ -1,8 +1,3 @@
-#include <iostream>
-#include <string>
-
-using namespace std;
-
 /**
  * File: problem4.cpp
  * ----------
@@ -15,6 +10,11 @@ using namespace std;
  * karelRow = 0; karelColumn = 0; karelFacing = east;
 **/
 
+#include <iostream>
+#include <string>
+
+using namespace std;
+
 class Karel{
         private:
                 int karelRow;
@@ -25,7 +25,7 @@ class Karel{
         public:
                 void init(int);
                 void readout();
-                int move();
+                bool move();
                 void turnLeft();
                 void crash();
                 void cleanQuit();
@@ -43,7 +43,7 @@ void Karel::readout(){ // send Karel's location and direction to cout
            << karelColumn << ") facing " << karelFacing << endl;
 }
 
-int Karel::move(){ //  move Karel one space - returns 0 for success, 1 for crash
+bool Karel::move(){ //  move Karel one space - returns false for no crash, true for crash
         switch (karelFacing[0]){
                 case 'e': ++karelColumn;
                                   break;
@@ -55,13 +55,13 @@ int Karel::move(){ //  move Karel one space - returns 0 for success, 1 for crash
                                   break;
         }
         if (karelRow >= worldSize || karelColumn >= worldSize){
-                return 1;
+                return true;
         }
         else if (karelRow < 0 || karelColumn < 0){
-                return 1;
+                return true;
         }
         else{
-                return 0;
+                return false;
         }
 }
 
@@ -89,7 +89,7 @@ void Karel::cleanQuit(){ // dialogue for exited Karel
                 ". Thank you for not crashing Karel!" << endl;
 }
 
-string prompt(){ // prompt to recieve user input
+string prompt(){ // prompt to receive user input
         string input;
         cout << "> ";
         cin >> input;
@@ -97,7 +97,7 @@ string prompt(){ // prompt to recieve user input
         return input;
 }
 
-int main(){ // this is where the magic happens
+int main(){
         Karel karel;
         string input;
 
@@ -108,7 +108,7 @@ int main(){ // this is where the magic happens
 
         while (input != "exit"){
                 int crash;
-                crash = 0;
+                crash = false;
 
                 karel.readout();
                 input = prompt();
@@ -124,7 +124,7 @@ int main(){ // this is where the magic happens
                 else { // anything that's not "move", "turn" or invalid is an exit
                         karel.cleanQuit();
                 }
-                if (crash == 1){ // check for crash flag
+                if (crash){
                         karel.crash();
                         input = "exit";
                 }
