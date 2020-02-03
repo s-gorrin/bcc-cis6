@@ -1,0 +1,4 @@
+Look at the first letter in the name and flip the phone book to that letter.
+Look at the second letter and flip the phone book until I find names with the first two letters.
+Continue in that fashion until I find an entry with all matching letters.
+Look next to the name entry to find the associated number.
