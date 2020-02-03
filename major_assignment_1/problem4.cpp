@@ -1,7 +1,7 @@
 /**
  * File: problem4.cpp
  * ----------
- * creadted by: Seth Gorrin 2020-02-02
+ * created by: Seth Gorrin 2020-02-02
  * basic text-based implementation for karel
  * for BCC CIS6 Spring 2020
  * ----------
