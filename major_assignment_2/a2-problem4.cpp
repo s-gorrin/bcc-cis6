@@ -11,12 +11,15 @@
 using namespace std;
 
 int fib(int number) {
+    if (number == 0){
+        return 0;
+    }
     int n1, n2;
 
     n1 = 0;
     n2 = 1;
 
-    for (int i = 0; i < number; i++) {
+    for (int i = 0; i < number - 1; i++) {
         int temp;
         temp = n1 + n2;
         n1 = n2;
