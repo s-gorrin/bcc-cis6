@@ -7,10 +7,12 @@
 **/
 
 #include <iostream>
-#include <string>
 
 using namespace std;
 
+/*
+ * this function has been left as a comment for posterity.
+ * when I first did this assignment, the "no string" requirement was not there.
 int flipper(string num, int n){
         if(n >= 0){
                 cout << num[n];
@@ -18,18 +20,22 @@ int flipper(string num, int n){
         }
         return 0;
 }
+*/
 
 int main(){
-        string num; // no number? no problem!
-
+        int num;
         cout << "Please enter a number: ";
         cin >> num;
 
-        flipper(num, num.length());
+        while (num > 0){
+                cout << num % 10;
+                num /= 10;
+        }
         cout << endl;
 
         return 0;
 }
+
 
 /*
 Errors so Far:
