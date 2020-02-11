@@ -31,7 +31,7 @@ class Karel{
                 void cleanQuit();
 };
 
-void Karel::init(int s){ // initialize variables
+void Karel::init(int s){ // initialize variables to start and world size
         karelRow = 0;
         karelColumn = 0;
         karelFacing = "east";
@@ -97,15 +97,13 @@ string prompt(){ // prompt to receive user input
         return input;
 }
 
-int main(){
-        Karel karel;
+void interface(Karel karel){ // get input from the user and run commands
         string input;
-
-        karel.init(8);
-
+        
         cout << "Welcome to Karel.\nPlease enter a command. Your choices are:\n" \
                 << "move(); turnLeft(); quit" << endl;
 
+        input = "";
         while (input != "exit"){
                 int crash;
                 crash = false;
@@ -129,6 +127,13 @@ int main(){
                         input = "exit";
                 }
         }
+}
+
+int main(){
+        Karel karel;
+
+        karel.init(8);
+        interface(karel);
 
         return 0;
 }
