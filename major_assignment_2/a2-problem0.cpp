@@ -5,7 +5,7 @@
  * basic text-based implementation for karel
  * for BCC CIS6 Spring 2020
  * ----------
- * commands: move(); turnLeft(); quit(); else: "please input xyz"
+ * commands: move(); turnLeft(); exit else: "please input xyz"
  * variables: int karelRow; int karelColumn; string karelFacing;
  * karelRow = 0; karelColumn = 0; karelFacing = east;
 **/
