@@ -5,7 +5,7 @@
  * basic text-based implementation for karel
  * for BCC CIS6 Spring 2020
  * ----------
- * commands: move(); turnLeft(); exit else: "please input xyz"
+ * commands: move(); turnLeft(); quit else: "please input xyz"
  * variables: int karelRow; int karelColumn; string karelFacing;
  * karelRow = 0; karelColumn = 0; karelFacing = east;
 **/
@@ -14,6 +14,8 @@
 #include <string>
 
 using namespace std;
+
+const int WORLD_SIZE = 8;
 
 class Karel{
         private:
@@ -101,10 +103,10 @@ void interface(Karel karel){ // get input from the user and run commands
         string input;
         
         cout << "Welcome to Karel.\nPlease enter a command. Your choices are:\n" \
-                << "move(); turnLeft(); exit" << endl;
+                << "move(); turnLeft(); quit" << endl;
 
         input = "";
-        while (input != "exit"){
+        while (input != "quit"){
                 int crash;
                 crash = false;
 
@@ -116,15 +118,15 @@ void interface(Karel karel){ // get input from the user and run commands
                 else if (input == "turnLeft();"){
                         karel.turnLeft();
                 }
-                else if (input != "exit"){ // process invalid input
-                        cout << "I don't understand that command." << endl;
-                }
-                else { // anything that's not "move", "turn" or invalid is an exit
+                else if (input == "quit"){
                         karel.cleanQuit();
+                }
+                else {
+                        cout << "I don't understand that command." << endl;
                 }
                 if (crash){
                         karel.crash();
-                        input = "exit";
+                        input = "quit";
                 }
         }
 }
@@ -132,7 +134,7 @@ void interface(Karel karel){ // get input from the user and run commands
 int main(){
         Karel karel;
 
-        karel.init(8);
+        karel.init(WORLD_SIZE);
         interface(karel);
 
         return 0;
