@@ -101,7 +101,7 @@ void interface(Karel karel){ // get input from the user and run commands
         string input;
         
         cout << "Welcome to Karel.\nPlease enter a command. Your choices are:\n" \
-                << "move(); turnLeft(); quit" << endl;
+                << "move(); turnLeft(); exit" << endl;
 
         input = "";
         while (input != "exit"){
