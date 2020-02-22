@@ -59,19 +59,22 @@ class World {
 
 };
 
-void Karel::init(int s) { // initialize variables to start and world size
+// initialize variables to start and world size
+void Karel::init(int s) {
 	karelRow = 0;
 	karelColumn = 0;
 	karelFacing = "east";
 	worldSize = s;
 }
 
-void Karel::readout() { // send Karel's location and direction to cout
+// send Karel's location and direction to cout
+void Karel::readout() {
 	cout << "Karel is at location (" << karelRow << ", " \
 		<< karelColumn << ") facing " << karelFacing << endl;
 }
 
-bool Karel::move() { //  move Karel one space - returns false for no crash, true for crash
+// move Karel one space - returns false for no crash, true for crash
+bool Karel::move() {
 	switch (karelFacing[0]) {
 		case 'e': ++karelColumn;
 						break;
@@ -93,7 +96,8 @@ bool Karel::move() { //  move Karel one space - returns false for no crash, true
 	}
 }
 
-void Karel::turnLeft() { // find new direction for left turn based on current direction
+// find new direction for left turn based on current direction
+void Karel::turnLeft() {
 	switch (karelFacing[0]) {
 		case 'e': karelFacing = "north";
 							break;
@@ -106,7 +110,8 @@ void Karel::turnLeft() { // find new direction for left turn based on current di
 	}
 }
 
-void Karel::crash(int code) { // dialogue for crashed Karel
+// dialogue for crashed Karel
+void Karel::crash(int code) {
 	if (code == CRASH_WALL) {
 		cout << "Karel tried to move to location (" << karelRow << ", " \
 			<< karelColumn << "). Karel has crashed!" << endl;
@@ -117,13 +122,15 @@ void Karel::crash(int code) { // dialogue for crashed Karel
 	}
 }
 
-void Karel::cleanQuit() { // dialogue for exited Karel
+// dialogue for intentionally quit Karel
+void Karel::cleanQuit() {
 	cout << "Karel finished at location (" << karelRow << ", " << \
 		karelColumn << ") facing " << karelFacing << \
 		". Thank you for not crashing Karel!" << endl;
 }
 
-int Karel::get(const int ref) { // gets values from Karel
+// gets values from Karel
+int Karel::get(const int ref) {
 	if (ref == ROW_REF) {
 		return karelRow;
 	}
@@ -133,10 +140,12 @@ int Karel::get(const int ref) { // gets values from Karel
 	if (ref == WOR_REF) {
 		return worldSize;
 	}
-	return 0; // if this happens, something has gone wrong
+	return 0; // if this happens, something has gone very wrong, but without it
+			  // I think I might get "control reaches end of non-void function"
 }
 
-void World::init(int size) { // create map grid with 0-values
+// create map grid with 0-values
+void World::init(const int size) {
 	vector<int> rows(size, MAP_INIT);
 	vector<vector<int> > temp(size);
 	grid = temp;
@@ -147,8 +156,9 @@ void World::init(int size) { // create map grid with 0-values
 	}
 }
 
-void World::drawMap(int kRow, int kCol) { // draw the map, render symbols
-	for (int i = worldSize - 1; i >= 0; i--) { // flips north/south. size - 1 is critical.
+// draw the map, render symbols
+void World::drawMap(int kRow, int kCol) {
+	for (int i = worldSize - 1; i >= 0; i--) { // flip n/s. size -1 is critical
 		for (int j = 0; j < worldSize; j++) {
 			if (i == kRow && j == kCol && grid[i][j] > MAP_INIT ) {
 				cout << RANDB;
@@ -170,13 +180,15 @@ void World::drawMap(int kRow, int kCol) { // draw the map, render symbols
 	}
 }
 
-void World::putBeeper(int kRow, int kCol) { // place a beeper on the map
+// place a beeper on the map
+void World::putBeeper(int kRow, int kCol) {
 	// IF HANDLING MULTIPLE BEEPERS IS NOT ALLOWED, NEED TO ADD:
 	// if (grid[kRow][kCol] == MAP_INIT) { }
 	grid[kRow][kCol] += 1;
 }
 
-bool World::pickBeeper(int kRow, int kCol) { // pick a beeper, true for crash
+// pick a beeper, return true for crash
+bool World::pickBeeper(int kRow, int kCol) {
 	// SEE ABOVE FOR CHANGE IN CASE OF SINGLE BEEPERS ONLY
 	grid[kRow][kCol] -= 1;
 	if (grid[kRow][kCol] < MAP_INIT) {
@@ -185,7 +197,8 @@ bool World::pickBeeper(int kRow, int kCol) { // pick a beeper, true for crash
 	return false;
 }
 
-string prompt() { // prompt to receive user input
+// prompt to receive user input
+string prompt() {
 	string input;
 	cout << "> ";
 	cin >> input;
@@ -193,18 +206,18 @@ string prompt() { // prompt to receive user input
 	return input;
 }
 
-void interface(Karel karel, World map) { // get input from the user and run commands
-	string input;
+// get input from the user and run commands
+void interface(Karel karel, World map) {
+	string input = "";
 	
 	cout << "Welcome to Karel.\nPlease enter a command. Your choices are:\n" \
 		<< "move(); turnLeft(); putBeeper(); pickBeeper(); quit();" << endl;
 
 	map.drawMap(karel.get(ROW_REF), karel.get(COL_REF));
-	input = "";
 	while (input != "quit();") {
 		bool crash = false;
 		bool print = true;
-		int crashCode;
+		int crashCode = 0;
 
 		karel.readout();
 		input = prompt();
