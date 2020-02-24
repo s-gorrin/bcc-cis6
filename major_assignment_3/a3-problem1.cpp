@@ -42,7 +42,7 @@ int main() {
 	ofstream fileOut("output.txt");
 	string line;
 
-	if (fileIn.is_open() && fileOut.is_open()) {
+	if (fileIn && fileOut) {
 		while (getline(fileIn, line)) {
 			for (int i = 0; i < line.length(); i++) {
 				fileOut << rot13(line[i]);
@@ -51,6 +51,9 @@ int main() {
 		}
 		fileIn.close();
 		fileOut.close();
+	}
+	else {
+		cout << "failed to open file\n";
 	}
 
 	return 0;
