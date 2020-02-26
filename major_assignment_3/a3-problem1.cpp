@@ -13,6 +13,8 @@
 
 using namespace std;
 
+// shifts a letter 13 places in the alphabet, looping from A back to A
+// shifts numbers five places in the same way. ignores other characters
 char rot13(char c) {
 	if (islower(c)) {
 		if (c <= 'm')
