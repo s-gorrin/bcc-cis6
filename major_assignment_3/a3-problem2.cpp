@@ -1,7 +1,7 @@
 /**
  * Filename a3-problem2.cpp
  * ----------
- * created by: Seth Gorrin 2020-02-24 {DATE}
+ * created by: Seth Gorrin 2020-02-24
  * find a string in a file and count instances
  * for BCC CIS6 Spring 2020
 **/
