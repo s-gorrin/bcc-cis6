@@ -17,6 +17,7 @@ using namespace std;
 const int C_SIZE = 10;
 const int REPS = 10000;
 const int MAX_BAR = 50;
+const int BORDER_ALLOW = 51;
 
 // initialize the counters array and histogram vector
 void initializer(int counters[], vector<vector<char> > &histogram) {
@@ -74,13 +75,21 @@ int findBiggest(int counters[]) {
 }
 
 // fill histogram with '#' marks based on counter values
+// SOMETHING IS WRONG WITH MY ALGORITHM HERE
+// I should be getting a ratio such that the tallest (in this case all)
+// bar is 50, and the rest are scaled based on 
+// bar of n height * ratio = number of hashes
+// bar of max height * ratio = 50
+// bar of 0.5max height * ration = 25
+// DO SOME MATH OR SOMETHING. FUCK
 void makeBarGraph(int counters[], vector<vector<char> > &histogram) {
 	int ratio = findBiggest(counters) / MAX_BAR;
 
+	cout << ratio << endl;
 	for (int i = 0; i < C_SIZE; i++) {
-		for (int j = 0; j < MAX_BAR; j++) {
-			if (j <= counters[i] * ratio) {	// if the current index is <=
-											// the height of this bar
+		for (int j = 0; j < BORDER_ALLOW; j++) {
+			if (j <= counters[i] * ratio / 100) { // if the current index is <=
+												  // the height of this bar
 				histogram.at(i).push_back('#');
 			}
 			else { // if this spot is taller than the bar height, make it a ' '
@@ -91,11 +100,23 @@ void makeBarGraph(int counters[], vector<vector<char> > &histogram) {
 }
 
 // print out the histogram, but like, sideways
+// NEED TO ADD SUPPORT FOR TOP _ per bar
+// something like:
+// if this spot is ' ' and the next spot is '#'
+// 		cout a '_' 
+// if this spot is ' ' and next spot is ' '
+// 		cout three spaces to match "|#|"
 void printBarGraph(vector<vector<char> > &histogram) {
-	// start simple
-	for (int i = 0; i < C_SIZE; i++) {
-		for (int j = 0; j < MAX_BAR; j++) {
-			cout << histogram.at(i).at(j);
+	// testing
+	cout << histogram.at(0).at(50) + 10 << endl;
+	cout << histogram.at(0).size() << endl;
+	// /testing
+	for (int j = BORDER_ALLOW - 1; j >= 0; j--) { // start at the end
+		for (int i = 0; i < C_SIZE; i++) {
+			cout << '|'  << histogram.at(i).at(j) << '|';
+			if (i < C_SIZE - 1) {
+				cout << ' ';
+			}
 		}
 		cout << endl;
 	}
