@@ -16,8 +16,26 @@ using namespace std;
 
 const int C_SIZE = 10;
 const int REPS = 10000;
+const int SUM_SET = 10;
 const int MAX_BAR = 50;
 const int BORDER_ALLOW = 51;
+const int DECIMALS = 1;
+const int INTEGARS = 2;
+
+// chose to solve part a or part b of the assignment
+int pickPart() {
+	string part;
+
+	cout << "Show solution for part [a] or part [b]?\n> ";
+	cin >> part;
+	while (part != "a" && part != "b") {
+		cout << "Please enter either \"a\" or \"b\"\n> ";
+		cin >> part;
+	}
+	if (part == "a")
+		return DECIMALS;
+	return INTEGARS;
+}
 
 // initialize the counters array and histogram vector
 void initializer(int counters[], vector<vector<char> > &histogram) {
@@ -28,9 +46,9 @@ void initializer(int counters[], vector<vector<char> > &histogram) {
 	}
 }
 
-// generate a random number between 0 and 1000
+// generate a random number between 0 and 1.0000
 double getRandom() {	
-	return (rand() % 1000) / 1000.0;
+	return (rand() % 10000) / 10000.0;
 }
 
 // generate REPS random numbers and sort them
@@ -38,26 +56,27 @@ void countRandoms(int counters[]) {
 	for (int i = 0; i < REPS; i++) {
 		double random = getRandom();
 		
-		if (random < 0.1)
-			counters[0]++;
-		else if (random < 0.2)
-			counters[1]++;
-		else if (random < 0.3)
-			counters[2]++;
-		else if (random < 0.4)
-			counters[3]++;
-		else if (random < 0.5)
-			counters[4]++;
-		else if (random < 0.6)
-			counters[5]++;
-		else if (random < 0.7)
-			counters[6]++;
-		else if (random < 0.8)
-			counters[7]++;
-		else if (random < 0.9)
-			counters[8]++;
-		else
-			counters[9]++;
+		for (int j = 0; j < C_SIZE; j++) {
+			if (random < (j + 1) / 10.0 && random > j / 10.0) {
+				counters[j]++;
+			}
+		}
+	}
+}
+
+// generate REPS * 10 random numbers, sum groups, and sort
+void sumRandoms(int counters[]) {
+	for (int i = 0; i < REPS; i++) {
+		double setTotal = 0.0;
+
+		for (int j = 0; j < SUM_SET; j++) {
+			setTotal += getRandom();
+		}
+		for (int j = 0; j < C_SIZE; j++) {
+			if (setTotal < (j + 1) && setTotal > j) {
+				counters[j]++;
+			}
+		}
 	}
 }
 
@@ -75,17 +94,13 @@ int findBiggest(int counters[]) {
 }
 
 // fill histogram with '#' marks based on counter values
-// SOMETHING IS WRONG WITH MY ALGORITHM HERE
-// should never get a bar of height 51... check much taller bars
-// and see if the tallest is always that? (put more whitespace above)
 void makeBarGraph(int counters[], vector<vector<char> > &histogram) {
-	int ratio = findBiggest(counters) / MAX_BAR;
+	double ratio = findBiggest(counters) / 50.0; // 50.0 to make a double
 
-	cout << ratio << endl;
 	for (int i = 0; i < C_SIZE; i++) {
 		for (int j = 0; j < BORDER_ALLOW; j++) {
-			if (j <= counters[i] / ratio) {	// if the current index is <=
-											// the height of this bar
+		// if the current index is <= to the height of this bar, cap at 50
+			if (j < counters[i] / ratio && j < MAX_BAR) {
 				histogram.at(i).push_back('#');
 			}
 			else { // if this spot is taller than the bar height, make it a ' '
@@ -96,21 +111,19 @@ void makeBarGraph(int counters[], vector<vector<char> > &histogram) {
 }
 
 // print out the histogram, but like, sideways
-// NEED TO ADD SUPPORT FOR TOP _ per bar
-// something like:
-// if this spot is ' ' and the next spot is '#'
-// 		cout a '_' 
-// if this spot is ' ' and next spot is ' '
-// 		cout three spaces to match "|#|"
 void printBarGraph(vector<vector<char> > &histogram) {
-	// testing
-	cout << histogram.at(0).at(50) + 10 << endl;
-	cout << histogram.at(0).size() << endl;
-	// /testing
 	for (int j = BORDER_ALLOW - 1; j >= 0; j--) { // start at the end
 		for (int i = 0; i < C_SIZE; i++) {
-			cout << '|'  << histogram.at(i).at(j) << '|';
-			if (i < C_SIZE - 1) {
+			if (histogram.at(i).at(j) == '#') {
+				cout << '|' << histogram.at(i).at(j) << '|';
+			}
+			else if (j > 0 && histogram.at(i).at(j - 1) == '#') {
+				cout << " _ ";
+			}
+			else {
+				cout << "   ";
+			}
+			if (i < C_SIZE - 1) { // if not the last bar, print a space
 				cout << ' ';
 			}
 		}
@@ -121,24 +134,17 @@ void printBarGraph(vector<vector<char> > &histogram) {
 int main() {
 	int counters[C_SIZE];
 	vector<vector<char> > histogram(C_SIZE);
-	int totalChecker = 0; // for testing only. delete from final code
-
+	int userChoice = pickPart();
 	srand(time(0));
-	
+
 	initializer(counters, histogram);
-	countRandoms(counters);
+	if (userChoice == DECIMALS)
+		countRandoms(counters);
+	else
+		sumRandoms(counters);
+
 	makeBarGraph(counters, histogram);
 	printBarGraph(histogram);
-
-	// below is testing stuff
-	cout << endl;
-	for (int i = 0; i < 10; i++) {
-		cout << counters[i] << endl;
-		totalChecker += counters[i];
-	}
-	cout << endl << "total randoms counted: " << totalChecker << endl;
-	histogram.at(0).push_back('g');
-	cout << histogram.at(0).at(0) << endl;
 
 	return 0;
 }
