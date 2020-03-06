@@ -12,6 +12,8 @@
 
 using namespace std;
 
+const string FILE_NAME = "input.txt";
+
 // looks for the string in each line and returns the number found
 int findString(string find, string line) {
 	int j = 0, subLength = 0, found = 0;
@@ -37,7 +39,7 @@ int findString(string find, string line) {
 
 // gets string as input, reads a file, finds instances of the string
 void fileReader() {
-	ifstream fileIn("input.txt");
+	ifstream fileIn(FILE_NAME);
 	string line, find;
 	int lineCounter = 0, totalStrings = 0;
 
@@ -68,12 +70,3 @@ int main() {
 
 	return 0;
 }
-
-/**
- * Write a program that asks the user for a file name and a string for which to search. 
- * The program should search the file for every occurrence of a specified string.
- * When the string is found, the number of the line that contains it should be displayed.
- * After all the occurrences have been located, the program should report the number of times the string appeared in the file.
- *
- * You are expected to define functions to perform the various steps in this program.
-**/
