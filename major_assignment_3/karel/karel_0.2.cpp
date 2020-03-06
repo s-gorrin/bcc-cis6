@@ -1,6 +1,8 @@
 /**
  * File: karel_0.2.cpp
  * ----------
+ * Supporting files: common.h, karel.h, world.h, karel.cpp, world.cpp
+ * ----------
  * created by: Seth Gorrin 2020-02-13
  * basic implementation for karel, 0.2
  * now with more ascii
@@ -25,7 +27,7 @@ string prompt() {
 }
 
 // get input from the user and run commands
-void interface(Karel karel, World map) {
+void interface(Karel &karel, World &map) {
 	string input = "";
 	
 	cout << "Welcome to Karel.\nPlease enter a command. Your choices are:\n" \
@@ -77,11 +79,9 @@ void interface(Karel karel, World map) {
 }
 
 int main() {
-	Karel karel;
-	World map;
+	Karel karel(WORLD_SIZE);
+	World map(WORLD_SIZE);
 
-	karel.init(WORLD_SIZE);
-	map.init(WORLD_SIZE);
 	interface(karel, map);
 
 	return 0;

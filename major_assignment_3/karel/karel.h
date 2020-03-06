@@ -11,7 +11,7 @@ class Karel {
 		int worldSize;
 
 	public:
-		void init(int);
+		Karel(int);
 		void readout();
 		bool move();
 		void turnLeft();

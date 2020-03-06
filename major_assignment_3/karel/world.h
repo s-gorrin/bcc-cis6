@@ -7,7 +7,7 @@ class World {
 		int worldSize;
 
 	public:
-		void init(int);
+		World(int);
 		void drawMap(int, int);
 		void putBeeper(int, int);
 		bool pickBeeper(int, int);

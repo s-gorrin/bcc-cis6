@@ -37,7 +37,7 @@ class Karel {
 		int worldSize;
 
 	public:
-		void init(int);
+		Karel(int);
 		void readout();
 		bool move();
 		void turnLeft();
@@ -52,15 +52,15 @@ class World {
 		int worldSize;
 
 	public:
-		void init(int);
+		World(int);
 		void drawMap(int, int);
 		void putBeeper(int, int);
 		bool pickBeeper(int, int);
 
 };
 
-// initialize variables to start and world size
-void Karel::init(int s) {
+// constructor - initialize variables to start and world size
+Karel:: Karel(int s) {
 	karelRow = 0;
 	karelColumn = 0;
 	karelFacing = "east";
@@ -144,8 +144,8 @@ int Karel::get(const int ref) {
 			  // I think I might get "control reaches end of non-void function"
 }
 
-// create map grid with 0-values
-void World::init(const int size) {
+// constructor - create map grid with 0-values
+World::World(const int size) {
 	vector<int> rows(size, MAP_INIT);
 	vector<vector<int> > temp(size);
 	grid = temp;
@@ -207,7 +207,7 @@ string prompt() {
 }
 
 // get input from the user and run commands
-void interface(Karel karel, World map) {
+void interface(Karel &karel, World &map) {
 	string input = "";
 	
 	cout << "Welcome to Karel.\nPlease enter a command. Your choices are:\n" \
@@ -259,11 +259,11 @@ void interface(Karel karel, World map) {
 }
 
 int main() {
-	Karel karel;
-	World map;
+	Karel karel(WORLD_SIZE);
+	World map(WORLD_SIZE);
 
-	karel.init(WORLD_SIZE);
-	map.init(WORLD_SIZE);
+//	karel.init(WORLD_SIZE);
+//	map.init(WORLD_SIZE);
 	interface(karel, map);
 
 	return 0;

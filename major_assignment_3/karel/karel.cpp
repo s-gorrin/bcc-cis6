@@ -11,7 +11,7 @@
 using namespace std;
 
 // initialize variables to start and world size
-void Karel::init(int s) {
+Karel::Karel(int s) {
 	karelRow = 0;
 	karelColumn = 0;
 	karelFacing = "east";

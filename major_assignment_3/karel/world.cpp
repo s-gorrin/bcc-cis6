@@ -10,7 +10,7 @@
 using namespace std;
 
 // create map grid with 0-values
-void World::init(const int size) {
+World::World(const int size) {
 	vector<int> rows(size, MAP_INIT);
 	vector<vector<int> > temp(size);
 	grid = temp;
