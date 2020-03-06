@@ -1,4 +1,3 @@
-
 /**
  * Filename a3-problem3.cpp
  * ----------
