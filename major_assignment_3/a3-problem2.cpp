@@ -14,26 +14,24 @@ using namespace std;
 
 const string FILE_NAME = "input.txt";
 
+/* 
+ * I was thinking about this, and decided that you were right,
+ * and that indexing through both strings was clunky and ugly.
+ * So I did some research and found string.compare() and string.substr().
+ * This code now finds two "tomato"s in "tomatomato", and is golfed.
+ * Golf may not make code better, but it's pretty slick.
+ */ 
 // looks for the string in each line and returns the number found
 int findString(string find, string line) {
-	int j = 0, subLength = 0, found = 0;
+	int found = 0;
 
 	for (int i = 0; i < line.length(); i++) {
-		if (line[i] == find[j]) {
-			subLength++;
-			j++;
-		}
-		else {
-			subLength = 0;
-			j = 0;
-		}
-		if (subLength == find.length()) {
+		if (line[i] == find[0] &&
+				!find.compare(line.substr(i, find.length()))) {
 			found++;
-			subLength = 0;
-			j = 0;
 		}
 	}
-	
+
 	return found;
 }
 
@@ -52,7 +50,8 @@ void fileReader() {
 			lineCounter++;
 			temp = findString(find, line);
 			if (temp > 0) {
-				cout << "String found on line " << lineCounter << endl;
+				cout << "\"" << find << "\" was found on line "
+					<< lineCounter << endl;
 				totalStrings += temp;
 			}
 		}
@@ -62,7 +61,9 @@ void fileReader() {
 		cout << "failed to open file\n";
 	}
 
-	cout << "The string was found " << totalStrings << " times in the file.\n";
+	cout << "The string \"" << find << "\" was found "
+		<< totalStrings << (totalStrings == 1 ? " time" : " times")
+		<< " in the file.\n"; // apparently ternaries work in cout streams
 }
 
 int main() {
