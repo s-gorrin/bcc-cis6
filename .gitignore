@@ -37,3 +37,6 @@
 *.out
 *.app
 out
+
+# Debug files
+*.dSYM
