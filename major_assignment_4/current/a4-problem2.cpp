@@ -27,15 +27,15 @@ void printArray(int arr[], int size) {
 // Maybe I'm doing this wrong, but it seems like there's no point at
 // which I am using the temp that couldn't have been the input array
 int* resizeArray(int array[], int &size) {
-	int *temp = array;
+//	int *temp = array;
 	int *resize = new int[size * 2];
 
 	for (int i = 0; i < size; i++) {
-		resize[i] = temp[i];
+		resize[i] = array[i];
 	}
 	size *= 2;
 
-	delete[] temp;
+	delete[] array;
 	return resize;
 }
 
@@ -48,9 +48,9 @@ int main() {
 	for (int i = 0; i < size; i++) {
 		array[i] = i * 2;
 	}
-	printArray(array, 50); // printArray does what it says, (array, size)
-	array[50] = 137; // I was expecting this line and above it to seg fault
-	cout << array[50] << endl; // They didn't and now I don't know how to test my code
+	printArray(array, 50);
+	array[50] = 137;
+	cout << array[50] << endl;
 	array = resizeArray(array, size);
 
 	array[SIZE + 2] = 56;
