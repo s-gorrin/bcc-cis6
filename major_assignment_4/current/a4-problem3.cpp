@@ -11,7 +11,7 @@
 
 using namespace std;
 
-const int SIZE = 1000;
+const int SIZE = 100000;
 
 int binarySearch(int sortedArray[], int value, int start, int end) {
 	int mid = (start + end) / 2;
@@ -21,7 +21,7 @@ int binarySearch(int sortedArray[], int value, int start, int end) {
 	if (sortedArray[mid] == value)
 		return mid;
 
-	cout << mid << endl;
+	cout << mid << endl; // Prints each index as it approaches the value
 
 	if (value < sortedArray[mid])
 		return binarySearch(sortedArray, value, start, mid);
@@ -34,10 +34,12 @@ int main() {
 	for (int i = 0; i < SIZE; i++) {
 		arr[i] = i;
 	}
-	cout << "Search for: ";
+	cout << "Search for a number from 0 to " << SIZE - 1 << ": ";
 	int find;
 	cin >> find;
 	cout << binarySearch(arr, find, 0, SIZE) << " <-- index of number" << endl;
+	cout << "Index should match the number entered, since the array " <<
+		"matches the index 1 to 1." << endl;
 
 	return 0;
 }
