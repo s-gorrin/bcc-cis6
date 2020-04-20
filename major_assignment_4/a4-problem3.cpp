@@ -20,11 +20,9 @@ int binarySearch(int sortedArray[], int value, int start, int end) {
 		return -1;
 	if (sortedArray[mid] == value)
 		return mid;
-
-	cout << mid << endl; // Prints each index as it approaches the value
-
 	if (value < sortedArray[mid])
 		return binarySearch(sortedArray, value, start, mid);
+
 	return binarySearch(sortedArray, value, mid + 1, end);
 }
 
