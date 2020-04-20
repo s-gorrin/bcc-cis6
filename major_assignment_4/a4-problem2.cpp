@@ -1,7 +1,7 @@
 /**
  * Filename a3-problem2.cpp
  * ~~~~~~~~~~~~~~~~~~~~~~~~
- * created by: Seth Gorrin [DATE]
+ * created by: Seth Gorrin 12 April 2020
  * implement a dynamic array resizer
  * for BCC CIS6 Spring 2020
  **/
@@ -23,11 +23,7 @@ void printArray(int arr[], int size) {
 }
 
 // Resize an array
-// To be honest, I still don't fully understand why it needs a temp
-// Maybe I'm doing this wrong, but it seems like there's no point at
-// which I am using the temp that couldn't have been the input array
 int* resizeArray(int array[], int &size) {
-//	int *temp = array;
 	int *resize = new int[size * 2];
 
 	for (int i = 0; i < size; i++) {
@@ -39,8 +35,6 @@ int* resizeArray(int array[], int &size) {
 	return resize;
 }
 
-// The assignment says to create a main to test the function but
-// it does not say if the main should be submitted or not.
 int main() {
 	int size = SIZE; // SIZE == 5
 	int *array = new int[size];
