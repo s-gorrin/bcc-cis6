@@ -40,3 +40,6 @@ out
 
 # Debug files
 *.dSYM
+
+# Irrelevant macOS file
+.DS_Store
