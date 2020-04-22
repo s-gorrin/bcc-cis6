@@ -8,9 +8,10 @@ int arraySum(int array[], int arraySize) {
 		return 0;
 	}
 	// RECURSIVE CASE
-	array[arraySize - 2] += array[arraySize - 1];
-	arraySum(array, arraySize - 1);
-	return array[0];
+//	array[arraySize - 2] += array[arraySize - 1];
+//	arraySum(array, arraySize - 1);
+//	return array[0];
+	return array[arraySize - 1] + arraySum(array, arraySize - 1);
 }
 
 int main() {
